@@ -32,6 +32,8 @@ app.use(cors({
 }))
 
 app.use(express.json());
+
+//router
 app.use(UserRouter);
 app.use(TicketRouter);
 app.use(AuthRouter);
