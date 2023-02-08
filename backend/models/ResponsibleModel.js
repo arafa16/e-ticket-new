@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
 import Status from "./StatusModel.js";
+import Users from "./UserModel.js";
 
 const {DataTypes} = Sequelize;
 
@@ -33,5 +34,8 @@ const Responsible = db.define('responsible',{
 
 Status.hasMany(Responsible);
 Responsible.belongsTo(Status, {foreignKey: 'statusId'});
+
+Users.hasMany(Responsible);
+Responsible.belongsTo(Users, {foreignKey: 'userId'});
 
 export default Responsible;

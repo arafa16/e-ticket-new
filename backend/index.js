@@ -9,6 +9,8 @@ import db from './config/Database.js';
 import UserRouter from './routes/UserRoute.js';
 import TicketRouter from './routes/TicketRouter.js';
 import AuthRouter from './routes/AuthRouter.js';
+import StatusRouter from './routes/StatusRouter.js';
+import StatusTicketRouter from './routes/StatusTicketRouter.js';
 
 dotenv.config();
 
@@ -49,6 +51,8 @@ app.use(express.json());
 app.use(UserRouter);
 app.use(TicketRouter);
 app.use(AuthRouter);
+app.use(StatusRouter);
+app.use(StatusTicketRouter);
 
 // store.sync();
 
