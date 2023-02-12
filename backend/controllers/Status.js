@@ -25,11 +25,37 @@ export const getStatusById = async(req, res) => {
 }
 
 export const createStatus = async(req, res) => {
-    const {name} = req.body;
-    if(!name) return res.status(400).json({msg: "name tidak boleh kosong"});
+    const {name, code} = req.body;
+    if(!name || !code) return res.status(400).json({msg: "name tidak boleh kosong"});
     try {
         await Status.create({
-            name:name
+            name:name,
+            code: code
+        });
+
+        res.status(200).json({msg: "success"});
+    } catch (error) {
+        res.status(500).json({msg: error.message});
+    }
+}
+
+export const updateStatus = async(req, res) => {
+    const status = await Status.findOne({
+        where:{
+            uuid: req.params.id
+        }
+    })
+    if(!status) return res.status(404).json({msg: "status tidak ditemukan"});
+    const {name, code} = req.body;
+    if(!name || !code) return res.status(400).json({msg: "name tidak boleh kosong"});
+    try {
+        await Status.update({
+            name:name,
+            code: code
+        },{
+            where:{
+                id:status.id
+            }
         });
 
         res.status(200).json({msg: "success"});

@@ -10,7 +10,7 @@ import {
 const route = express.Router();
 
 route.get('/tickets', getTickets);
-route.get('/ticket/:id', getTicketById);
+route.get('/tickets/:id', getTicketById);
 route.post('/tickets', createTicket);
 route.put('/tickets', updateTicket);
 route.delete('/tickets', deleteTicket);

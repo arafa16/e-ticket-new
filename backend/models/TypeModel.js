@@ -20,6 +20,13 @@ const Types = db.define('types',{
             notEmpty: true
         }
     },
+    code:{
+        type: DataTypes.INTEGER,
+        allowNull : false,
+        validate: {
+            notEmpty: true
+        }
+    },
     statusId:{
         type: DataTypes.INTEGER,
         allowNull : true,

@@ -10,6 +10,7 @@ export const Login = async(req, res) => {
     if(!user) return res.status(404).json({msg: "user tidak ditemukan"});
     const match = await argon2.verify(user.password, req.body.password);
     if(!match) return res.status(400).json({msg: "wrong password"});
+    if(user.statusId !== 1 ) return res.status(400).json({msg: "anda belum divalidate"});
     req.session.userId = user.uuid;
     const uuid = user.uuid;
     const name = user.name;

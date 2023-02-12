@@ -17,7 +17,6 @@ export const verifyUser = async(req, res, next) => {
             id:user.statusId
         }
     })
-    if(status.name !== "active") return res.status(403).json({msg: "anda belum di validate oleh admin"});
     req.userId = user.id;
     next();
 }

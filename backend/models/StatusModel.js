@@ -18,6 +18,13 @@ const Status = db.define('status',{
         validate: {
             notEmpty: true
         }
+    },
+    code:{
+        type: DataTypes.INTEGER,
+        allowNull : false,
+        validate: {
+            notEmpty: true
+        }
     }
 },{
     freezeTableName: true

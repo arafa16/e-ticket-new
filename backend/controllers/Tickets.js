@@ -1,13 +1,20 @@
 import Tickets from "../models/TicketModel.js";
 import Responsible from "../models/ResponsibleModel.js";
 import Users from "../models/UserModel.js";
+import Types from "../models/TypeModel.js";
+import StatusTickets from "../models/StatusTicketModel.js";
 
 export const getTickets = async(req, res) => {
     try {
         const response = await Tickets.findAll({
-            include:{
-                model:Users
-            }
+            attributes:['uuid','request','startDate','endDate'],
+            include:[{
+                model:Types,
+                attributes:['uuid','name','code']
+            },{
+                model:StatusTickets,
+                attributes:['uuid','name','code']
+            }]
         });
         res.status(200).json(response)
     } catch (error) {
@@ -18,9 +25,14 @@ export const getTickets = async(req, res) => {
 export const getTicketById = async(req, res) => {
     try {
         const response = await Tickets.findOne({
-            include:{
-                model:Users
-            }
+            attributes:['uuid','request','startDate','endDate'],
+            include:[{
+                model:Types,
+                attributes:['uuid','name','code']
+            },{
+                model:StatusTickets,
+                attributes:['uuid','name','code']
+            }]
         },{
             where:{
                 uuid: req.params.id

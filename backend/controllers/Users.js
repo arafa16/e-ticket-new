@@ -31,7 +31,8 @@ export const createUser = async(req, res) => {
         await Users.create({
             name: name,
             email: email,
-            password: hasPassword
+            password: hasPassword,
+            statusId:'1'
         })
         return res.status(201).json({msg: "success"});
     } catch (error) {
@@ -46,7 +47,7 @@ export const updateUser = async(req, res) => {
         }
     });
     if(!user) return res.status(404).json({msg: "user tidak ditemukan"});
-    const {name, email, password, confPassword} = req.body;
+    const {name, email, password, confPassword, statusId} = req.body;
     let hasPassword;
     if(password === "" || password === null){
         hasPassword = user.password
@@ -58,7 +59,8 @@ export const updateUser = async(req, res) => {
         await Users.update({
             name: name,
             email: email,
-            password: hasPassword
+            password: hasPassword,
+            statusId:statusId
         },{
             where:{
                 id: user.id

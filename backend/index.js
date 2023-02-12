@@ -11,6 +11,8 @@ import TicketRouter from './routes/TicketRouter.js';
 import AuthRouter from './routes/AuthRouter.js';
 import StatusRouter from './routes/StatusRouter.js';
 import StatusTicketRouter from './routes/StatusTicketRouter.js';
+import TypeRouter from './routes/TypeRouter.js';
+import Responsible from './routes/Responsible.js';
 
 dotenv.config();
 
@@ -53,6 +55,8 @@ app.use(TicketRouter);
 app.use(AuthRouter);
 app.use(StatusRouter);
 app.use(StatusTicketRouter);
+app.use(TypeRouter);
+app.use(Responsible);
 
 // store.sync();
 
