@@ -1,0 +1,39 @@
+import React from 'react'
+
+const Responsible = () => {
+  return (
+    <div className='w-full bg-white rounded-md p-2'>
+            <div className='flex justify-between m-4'>
+                <div className='flex gap-4 items-center'>
+                    <div className='text-[12pt]'>Responsible</div>
+                </div>
+                <div>
+                    <button className='bg-cyan-500 hover:bg-cyan-400 text-white px-2 text-[8pt] rounded-md'>+ create</button>
+                </div>
+            </div>
+            <hr/>
+            <div className='min-h-[7rem] m-4'>
+                <table className='border border-slate-500 w-full text-[12px]'>
+                    <thead>
+                        <tr>
+                            <th class="border border-slate-600 w-1/12 p-1">No</th>
+                            <th class="border border-slate-600 w-6/12 p-1">Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr className='hover:bg-gray-100 cursor-pointer' onClick={()=>alert("haiiii")}>
+                            <td class="border border-slate-700 text-center">1</td>
+                            <td class="border border-slate-700 px-4">Putra</td>
+                        </tr>
+                        <tr className='hover:bg-gray-100 cursor-pointer' onClick={()=>alert("haiiii")}>
+                            <td class="border border-slate-700 text-center">2</td>
+                            <td class="border border-slate-700 px-4">Ara Fa</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+  )
+}
+
+export default Responsible
