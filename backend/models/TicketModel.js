@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
+import Responsible from "./ResponsibleModel.js";
 import StatusTickets from "./StatusTicketModel.js";
 import Types from "./TypeModel.js";
 import Users from "./UserModel.js";
@@ -79,6 +80,10 @@ Tickets.belongsTo(StatusTickets, {foreignKey: 'statusTicketId'});
 // types 
 Types.hasMany(Tickets);
 Tickets.belongsTo(Types, {foreignKey: 'typeId'});
+
+// responsible
+Types.hasMany(Tickets);
+Tickets.belongsTo(Responsible, {foreignKey: 'responsibleId'});
 
 
 export default Tickets;

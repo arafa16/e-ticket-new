@@ -3,10 +3,22 @@ import { BiUser, BiMenu } from "react-icons/bi";
 import Logo from '../../attributs/logo.png';
 import BigMenu from './BigMenu';
 import UserMenu from './UserMenu';
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {LogOut, reset} from "../../features/authSlice";
 
 const Navbar = () => {
     const [menu, setMenu] = useState(false);
     const [menuUser, setMenuUser] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const {user} = useSelector((state) => state.auth);
+
+    const handleLogout = () => {
+        dispatch(LogOut());
+        dispatch(reset());
+        navigate('/');
+    }
 
     const handleMenu = () => {
         setMenu(!menu)
@@ -55,9 +67,10 @@ const Navbar = () => {
                 </div>
             </div>
             <div>
+                
                 <BiUser className={`text-[16pt] cursor-pointer`} onClick={()=>handleMenuUser()} />
                 <div ref={menuUserRef} className={`absolute z-10 mt-4 right-10 ${!menuUser ? 'hidden' : ''}`}>
-                    <UserMenu />
+                    <UserMenu logout={handleLogout} />
                 </div>
             </div>
         </div>

@@ -9,6 +9,16 @@ export const getTickets = async(req, res) => {
         const response = await Tickets.findAll({
             attributes:['uuid','request','startDate','endDate'],
             include:[{
+                model:Users,
+                attributes:['uuid','name']
+            },{
+                model:Responsible,
+                attributes:['uuid'],
+                include:[{
+                    model:Users,
+                    attributes:['uuid','name']
+                }]
+            },{
                 model:Types,
                 attributes:['uuid','name','code']
             },{
@@ -27,6 +37,9 @@ export const getTicketById = async(req, res) => {
         const response = await Tickets.findOne({
             attributes:['uuid','request','startDate','endDate'],
             include:[{
+                model:Users,
+                attributes:['uuid','name']
+            },{
                 model:Types,
                 attributes:['uuid','name','code']
             },{
