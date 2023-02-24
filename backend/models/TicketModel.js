@@ -16,6 +16,13 @@ const Tickets = db.define('tickets',{
             notEmpty: true
         }
     },
+    nomor:{
+        type: DataTypes.INTEGER,
+        allowNull : false,
+        validate: {
+            notEmpty: true
+        }
+    },
     request:{
         type: DataTypes.STRING,
         allowNull : false,

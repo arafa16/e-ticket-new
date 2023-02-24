@@ -8,6 +8,7 @@ import NotFound from './components/error/NotFound';
 import Setting from './pages/setting/Setting';
 import UserTicket from './pages/ticket/UserTicket';
 import User from './pages/user/User';
+import AdminTicket from './pages/ticket/AdminTicket';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Login />} />
           <Route path='/users' element={<User />} />
+          <Route path='/adminTicket' element={<AdminTicket />} />
           <Route path='/ticket' element={<UserTicket />} />
           <Route path='/setting' element={<Setting />} />
           <Route path='/createStatus' element={<CreateStatus />} />
