@@ -21,12 +21,12 @@ const TableAdmin = (props) => {
     //___________________________________________________________________
 
     const getStatus = async() => {
-        const response = await axios.get(env.API_URL+'/statusTicket');
+        const response = await axios.get(process.env.REACT_APP_API_URL+'/statusTicket');
         setStatus(response.data);
     };
 
     const getResponsible = async() => {
-        const response = await axios.get(env.API_URL+'/responsible');
+        const response = await axios.get(process.env.REACT_APP_API_URL+'/responsible');
         setResponsible(response.data);
     }
 
@@ -96,7 +96,7 @@ const TableAdmin = (props) => {
                 <tbody ref={subRef}>
                     {tickets.map((ticket, index)=>(
                         <tr key={index} className='hover:bg-gray-100 cursor-pointer py-1'>
-                            <td className="border border-slate-700 text-center">{index + 1}</td>
+                            <td className="border border-slate-700 text-center">{(index + 1)+((pageNow-1)*10)}</td>
                             <td className="border border-slate-700 px-4 text-center">{ticket.user && ticket.nomor}</td>
                             <td className="border border-slate-700 px-4">{ticket.user && ticket.user.name}</td>
                             <td className="border border-slate-700 px-4">{ticket.type && ticket.type.name}</td>

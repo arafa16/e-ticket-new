@@ -19,14 +19,14 @@ const FormTicket = (props) => {
     },[]);
 
     const getTypes = async() => {
-        const response = await axios.get(env.API_URL+'/types');
+        const response = await axios.get(process.env.REACT_APP_API_URL+'/types');
         setType(response.data)
     }
 
     const saveTickets = async(e) => {
         e.preventDefault();
         try { 
-            await axios.post(env.API_URL+"/tickets", {
+            await axios.post(process.env.REACT_APP_API_URL+"/tickets", {
                 userId: user.uuid,
                 request: request,
                 typeId: typeId,

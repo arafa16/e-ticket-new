@@ -67,7 +67,6 @@ const Navbar = () => {
                 </div>
             </div>
             <div>
-                
                 <BiUser className={`text-[16pt] cursor-pointer`} onClick={()=>handleMenuUser()} />
                 <div ref={menuUserRef} className={`absolute z-10 mt-4 right-10 ${!menuUser ? 'hidden' : ''}`}>
                     <UserMenu logout={handleLogout} />

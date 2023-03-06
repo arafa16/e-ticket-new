@@ -1,5 +1,5 @@
 import React from 'react'
-import { BiCog, BiSupport, BiUser} from "react-icons/bi";
+import { BiCog, BiSupport, BiUser, BiDesktop} from "react-icons/bi";
 import {Link} from 'react-router-dom'
 
 const BigMenu = () => {
@@ -21,6 +21,12 @@ const BigMenu = () => {
           <div className='grid justify-items-center w-min cursor-pointer hover:text-white hover:bg-cyan-500 hover:rounded-md px-5 py-1'>
               <BiUser className='mb-2 text-[14pt]' />
               <p className='text-[10pt]'>Users</p>
+          </div>
+        </Link>
+        <Link to={`/users`}>
+          <div className='grid justify-items-center w-min cursor-pointer hover:text-white hover:bg-cyan-500 hover:rounded-md px-5 py-1'>
+              <BiDesktop className='mb-2 text-[14pt]' />
+              <p className='text-[10pt]'>Dashboard</p>
           </div>
         </Link>
     </div>

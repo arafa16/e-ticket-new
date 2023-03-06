@@ -1,5 +1,5 @@
-import Status from "../models/StatusModel.js";
 import Users from "../models/UserModel.js";
+import Status from "../models/StatusModel.js";
 
 export const verifyUser = async(req, res, next) => {
     if(!req.session.userId){
@@ -8,15 +8,16 @@ export const verifyUser = async(req, res, next) => {
     const user = await Users.findOne({
         where:{
             uuid: req.session.userId
-        }
+        },
+        include:[
+            {
+                model:Status,
+                attributes:['uuid','name','code']
+            }
+        ]
     });
     if(!user) return res.status(404).json({msg: "user tidak ditemukan"});
-    if(user.statusId === null) return res.status(403).json({msg: "anda belum di validate oleh admin"});
-    const status = await Status.findOne({
-        where:{
-            id:user.statusId
-        }
-    })
+    if(user.status.code !== 2) return res.status(403).json({msg: "anda belum mendapatkan akses"});
     req.userId = user.id;
     next();
 }

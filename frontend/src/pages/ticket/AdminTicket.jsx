@@ -62,8 +62,8 @@ const AdminTicket = () => {
     },[limitClear, pageClear])
 
     const getClearTickets = async() => {
-        const response = await axios.get(env.API_URL+'/clearTickets/'+limitClear+'&'+pageClear);
-        setClearTickets(response.data.rows.reverse())
+        const response = await axios.get(process.env.REACT_APP_API_URL+'/clearTickets/'+limitClear+'&'+pageClear);
+        setClearTickets(response.data.rows)
         setCountClear(response.data.count)
     }
 
@@ -103,8 +103,8 @@ const AdminTicket = () => {
     },[limitNew, pageNew])
 
     const getNewTickets = async() => {
-        const response = await axios.get(env.API_URL+'/newTickets/'+limitNew+'&'+pageNew);
-        setNewTickets(response.data.rows.reverse());
+        const response = await axios.get(process.env.REACT_APP_API_URL+'/newTickets/'+limitNew+'&'+pageNew);
+        setNewTickets(response.data.rows);
         setCountNew(response.data.count);
     }
 
@@ -138,7 +138,7 @@ const AdminTicket = () => {
     //__________________________________________________________//
 
     const updateStatus = async(idStatus,idActive) => {
-        await axios.put(env.API_URL+'/statusTickets/'+idActive,{
+        await axios.put(process.env.REACT_APP_API_URL+'/statusTickets/'+idActive,{
             endDate: moment(date).format('YYYY-MM-DD HH:mm:ss'),
             statusTicketId: idStatus            
         });
@@ -147,7 +147,7 @@ const AdminTicket = () => {
     }
 
     const updateResponsible = async(id, idResponsible) => {
-        await axios.put(env.API_URL+'/responseTickets/'+idResponsible,{
+        await axios.put(process.env.REACT_APP_API_URL+'/responseTickets/'+idResponsible,{
             id: id         
         });
         getNewTickets();

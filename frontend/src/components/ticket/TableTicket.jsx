@@ -40,7 +40,7 @@ const TableTicket = (props) => {
                         <tbody>
                             {tickets.map((ticket, index)=>(
                                 <tr key={index} className='hover:bg-gray-100 cursor-pointer py-1'>
-                                    <td className="border border-slate-700 text-center">{index + 1}</td>
+                                    <td className="border border-slate-700 text-center">{(index + 1)+((pageNow-1)*10)}</td>
                                     <td className="border border-slate-700 px-4 text-center">{ticket.user && ticket.nomor}</td>
                                     <td className="border border-slate-700 px-4">{ticket.user && ticket.user.name}</td>
                                     <td className="border border-slate-700 px-4">{ticket.type && ticket.type.name}</td>

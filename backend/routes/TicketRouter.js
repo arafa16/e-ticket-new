@@ -16,7 +16,7 @@ import { verifyUser } from '../middleware/Auth.js';
 
 const route = express.Router();
 
-route.get('/tickets', getTickets);
+route.get('/tickets', verifyUser, getTickets);
 
 // get clear ticket
 route.get('/clearTickets/:limit&:page', getClearTicketTable);

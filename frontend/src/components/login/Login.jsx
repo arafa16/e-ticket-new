@@ -69,6 +69,11 @@ const Login = () => {
                     </div>
                 </div>
             </form>
+            <div className='flex text-[9pt] justify-center gap-2'>
+                <p onClick={()=>navigate('/register')} className="hover:text-cyan-500 cursor-pointer">Register</p>
+                <p>|</p>
+                <p onClick={()=>navigate('/reset')} className="hover:text-cyan-500 cursor-pointer">Forgot password</p>
+            </div>
         </div>
     </div>
   )

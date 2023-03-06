@@ -1,16 +1,24 @@
 import Users from "../models/UserModel.js";
 import argon2 from 'argon2';
+import Status from "../models/StatusModel.js";
+import nodemailer from 'nodemailer';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 
 export const Login = async(req, res) => {
     const user = await Users.findOne({
         where:{
             email: req.body.email
-        }
+        },
+        include:[{
+            model:Status,
+            attributes:['uuid','name','code']
+        }]
     });
     if(!user) return res.status(404).json({msg: "user tidak ditemukan"});
     const match = await argon2.verify(user.password, req.body.password);
     if(!match) return res.status(400).json({msg: "wrong password"});
-    if(user.statusId !== 1 ) return res.status(400).json({msg: "anda belum divalidate"});
+    if(user.status.code !== 2 ) return res.status(400).json({msg: "anda belum divalidate silahkan hubungi Devisi IT"});
     req.session.userId = user.uuid;
     const uuid = user.uuid;
     const name = user.name;
@@ -39,4 +47,57 @@ export const Logout = (req, res) => {
         if(err) return res.status(400).json({msg: "tidak dapat logout"});
         res.status(200).json({msg: "berhasil logout"});
     })
+}
+
+
+export const ResetPassword = async(req,res) => {
+    const {email} = req.body;
+    const user = await Users.findOne({
+        where:{
+            email:email
+        }
+    });
+    if(!user) return res.status(404).json({msg: "email tidak ditemukan"});
+
+    const secret = process.env.SESS_SECRET;
+
+    const token = jwt.sign({email: user.email, id: user.id}, secret, {
+        expiresIn: "5m"
+    });
+
+    const link = `${process.env.LINK}/reset/${user.uuid}/${token}`;
+    
+    // create reusable transporter object using the default SMTP transport
+    const transporter = nodemailer.createTransport({
+        host: 'mail.kopkarla.co.id',
+        port: 587,
+        auth: {
+            user: 'support@kopkarla.co.id',
+            pass: 'Komp4kl4123!@#'
+        }
+    });
+
+    const msg = {
+        from: '"Support IT Kopkarla" <no-replay@kopkarla.co.id>',
+        to: email,
+        subject: "Reset Password",
+        text: 
+        `click this link for reset your password ${link}`
+    };
+
+    try {
+        await transporter.sendMail(msg);
+        return res.status(200).json({msg: "success"});
+    } catch (error) {
+        return res.status(500).json({msg: error});
+    }
+
+    
+
+    
+}
+
+export const getReset = async(req, res) => {
+    const {id, token} = req.params;
+    console.log(id);
 }

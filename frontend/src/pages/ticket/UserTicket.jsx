@@ -60,8 +60,8 @@ const UserTicket = () => {
 
     const getNewTickets = async() => {
         if(user){
-            const response = await axios.get(env.API_URL+'/newTicketsByUser/' + `${user && user.uuid}`+'&'+limitNew+'&'+pageNew);
-            setNewTickets(response.data.rows.reverse());
+            const response = await axios.get(process.env.REACT_APP_API_URL+'/newTicketsByUser/' + `${user && user.uuid}`+'&'+limitNew+'&'+pageNew);
+            setNewTickets(response.data.rows);
             setCountNew(response.data.count);
         }   
     }
@@ -102,8 +102,8 @@ const UserTicket = () => {
 
     const getClearTickets = async() => {
         if(user){
-            const response = await axios.get(env.API_URL+'/clearTicketsByUser/' + `${user && user.uuid}`+'&'+limitClear+'&'+pageClear);
-            setClearTickets(response.data.rows.reverse())
+            const response = await axios.get(process.env.REACT_APP_API_URL+'/clearTicketsByUser/' + `${user && user.uuid}`+'&'+limitClear+'&'+pageClear);
+            setClearTickets(response.data.rows)
             setCountClear(response.data.count)
         }
     }

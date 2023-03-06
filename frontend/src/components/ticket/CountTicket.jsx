@@ -3,11 +3,11 @@ import React from 'react'
 const CountTicket = (props) => {
     const {name, count} = props;
   return (
-    <div className='bg-white min-h-[7rem] rounded-md grid grid-cols-1 gap-1 p-4'>
-        <div className='text-center text-[12pt]'>
+    <div className='bg-white min-h-[4rem] rounded-md grid grid-cols-2 items-center gap-1 px-4'>
+        <div className='text-[10pt] flex justify-center'>
             {name}
         </div>
-        <div className='text-center text-[20pt]'>
+        <div className='text-[12pt] flex justify-center'>
             {count}
         </div>
     </div>

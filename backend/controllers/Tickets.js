@@ -5,10 +5,12 @@ import Types from "../models/TypeModel.js";
 import StatusTickets from "../models/StatusTicketModel.js";
 import { Sequelize } from "sequelize";
 
+const Op = Sequelize.Op;
+
 export const getTickets = async(req, res) => {
     try {
         const response = await Tickets.findAll({
-            attributes:['uuid','nomor','request','startDate','endDate'],
+            attributes:['id','uuid','nomor','request','startDate','endDate'],
             include:[{
                 model:Users,
                 attributes:['uuid','name']
@@ -62,7 +64,10 @@ export const getClearTicketTable = async(req, res) => {
                 }
             }],
             limit:limit,
-            offset:offset
+            offset:offset,
+            order: [
+                ['id', 'DESC'],
+            ]
         });
         res.status(200).json(response)
     } catch (error) {
@@ -108,7 +113,10 @@ export const getClearTicketByUser = async(req, res) => {
                 }
             }],
             limit:limit,
-            offset:offset
+            offset:offset,
+            order: [
+                ['nomor', 'DESC'],
+            ]
         });
         res.status(200).json(response)
     } catch (error) {
@@ -141,11 +149,16 @@ export const getNewTicketTable = async(req, res) => {
                 model:StatusTickets,
                 attributes:['uuid','name','code'],
                 where:{
-                    code: [1, 2, 3]
+                    code:{
+                        [Op.not]:[4]
+                    }
                 }
             }],
             limit:limit,
-            offset:offset
+            offset:offset,
+            order: [
+                ['nomor', 'DESC'],
+            ]
         });
         res.status(200).json(response)
     } catch (error) {
@@ -187,11 +200,16 @@ export const getNewTicketByUser = async(req, res) => {
                 model:StatusTickets,
                 attributes:['uuid','name','code'],
                 where:{
-                    code: [1,2,3]
+                    code:{
+                        [Op.not]:[4]
+                    }
                 }
             }],
             limit:limit,
-            offset:offset
+            offset:offset,
+            order: [
+                ['nomor', 'DESC'],
+            ]
         });
         res.status(200).json(response)
     } catch (error) {
@@ -212,7 +230,10 @@ export const getTicketById = async(req, res) => {
             },{
                 model:StatusTickets,
                 attributes:['uuid','name','code']
-            }]
+            }],
+            order: [
+                ['nomor', 'DESC'],
+            ]
         },{
             where:{
                 uuid: req.params.id
@@ -238,7 +259,10 @@ export const createTicket = async(req, res) => {
         }
     });
     if(!type) return res.status(400).json({msg: "type tidak diketahui"});
-
+    const status = await StatusTickets.findOne({
+        code:statusTicketId
+    });
+    if(!status) return res.status(400).json({msg: "status tidak diketahui"});
     const getMaxId = await Tickets.findOne({
         attributes: [[Sequelize.fn('max', Sequelize.col('nomor')), 'maxNomor']],
         raw: true,
@@ -252,7 +276,7 @@ export const createTicket = async(req, res) => {
             nomor:nomor,
             request:request,
             typeId: type.id,
-            statusTicketId:statusTicketId,
+            statusTicketId:status.id,
             startDate:startDate,
             responsibleId:responsebleId,
             endDate:endDate

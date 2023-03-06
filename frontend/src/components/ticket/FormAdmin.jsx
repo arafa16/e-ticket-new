@@ -37,7 +37,7 @@ const FormAdmin = (props) => {
     }
 
     const getUsers = async(name) => {
-        const response = await axios.get(env.API_URL+'/findUsers/'+name);
+        const response = await axios.get(process.env.REACT_APP_API_URL+'/findUsers/'+name);
         setUsers(response.data)
     }
 
@@ -48,24 +48,24 @@ const FormAdmin = (props) => {
     }
 
     const getTypes = async() => {
-        const response = await axios.get(env.API_URL+'/types');
+        const response = await axios.get(process.env.REACT_APP_API_URL+'/types');
         setType(response.data)
     }
 
     const getStatus = async() => {
-        const response = await axios.get(env.API_URL+'/statusTicket');
+        const response = await axios.get(process.env.REACT_APP_API_URL+'/statusTicket');
         setStatuses(response.data)
     }
 
     const getResponsible = async() => {
-        const response = await axios.get(env.API_URL+'/responsible');
+        const response = await axios.get(process.env.REACT_APP_API_URL+'/responsible');
         setResponsibles(response.data)
     }
 
     const saveTickets = async(e) => {
         e.preventDefault();
         try { 
-            await axios.post(env.API_URL+"/tickets", {
+            await axios.post(process.env.REACT_APP_API_URL+"/tickets", {
                 userId: idUser,
                 request: request,
                 typeId: typeId,

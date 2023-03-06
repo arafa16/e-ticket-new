@@ -2,10 +2,12 @@ import Status from "../models/StatusModel.js";
 
 export const getStatus = async(req, res) => {
     try {
-        const response = await Status.findAll();
+        const response = await Status.findAll({
+            attributes:['uuid','name','code'],
+        });
         res.status(200).json(response)
     } catch (error) {
-        res.status(500).json({msg: error.status});
+        res.status(500).json({msg: error.message});
     }
 }
 
@@ -20,7 +22,7 @@ export const getStatusById = async(req, res) => {
         });
         res.status(200).json(response)
     } catch (error) {
-        res.status(500).json({msg: error.status});
+        res.status(500).json({msg: error.message});
     }
 }
 
