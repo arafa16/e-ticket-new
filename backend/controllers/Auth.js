@@ -69,11 +69,11 @@ export const ResetPassword = async(req,res) => {
     
     // create reusable transporter object using the default SMTP transport
     const transporter = nodemailer.createTransport({
-        host: 'mail.kopkarla.co.id',
-        port: 587,
+        host: process.env.HOST,
+        port: process.env.MAIL_PORT,
         auth: {
-            user: 'support@kopkarla.co.id',
-            pass: 'Komp4kl4123!@#'
+            user: process.env.MAIL,
+            pass: process.env.MAIL_PASS
         }
     });
 
